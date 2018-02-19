@@ -11,6 +11,8 @@
 		3F457050202CE4BB005CA8B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F45704F202CE4BB005CA8B4 /* Assets.xcassets */; };
 		3F45705E202CE4BB005CA8B4 /* WesterosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F45705D202CE4BB005CA8B4 /* WesterosTests.swift */; };
 		3F457069202CF00D005CA8B4 /* HouseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F457068202CF00D005CA8B4 /* HouseTests.swift */; };
+		3F74D8AB203B68CC00322988 /* MemberListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F74D8A9203B68CC00322988 /* MemberListViewController.swift */; };
+		3F74D8AC203B68CC00322988 /* MemberListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F74D8AA203B68CC00322988 /* MemberListViewController.xib */; };
 		3FA9484220338A9E0067E308 /* codeIsComing.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA9483F20338A9E0067E308 /* codeIsComing.png */; };
 		3FA9484320338A9E0067E308 /* lannister.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3FA9484020338A9E0067E308 /* lannister.jpg */; };
 		3FA9484420338A9E0067E308 /* targaryenSmall.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3FA9484120338A9E0067E308 /* targaryenSmall.jpg */; };
@@ -48,6 +50,8 @@
 		3F45705D202CE4BB005CA8B4 /* WesterosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WesterosTests.swift; sourceTree = "<group>"; };
 		3F45705F202CE4BB005CA8B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F457068202CF00D005CA8B4 /* HouseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseTests.swift; sourceTree = "<group>"; };
+		3F74D8A9203B68CC00322988 /* MemberListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberListViewController.swift; sourceTree = "<group>"; };
+		3F74D8AA203B68CC00322988 /* MemberListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MemberListViewController.xib; sourceTree = "<group>"; };
 		3FA9483F20338A9E0067E308 /* codeIsComing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = codeIsComing.png; path = Assets/codeIsComing.png; sourceTree = "<group>"; };
 		3FA9484020338A9E0067E308 /* lannister.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = lannister.jpg; path = Assets/lannister.jpg; sourceTree = "<group>"; };
 		3FA9484120338A9E0067E308 /* targaryenSmall.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = targaryenSmall.jpg; path = Assets/targaryenSmall.jpg; sourceTree = "<group>"; };
@@ -148,6 +152,8 @@
 				3FC6A9B920370F4F00172A14 /* HouseListViewController.xib */,
 				3FC6A9B620370F4E00172A14 /* WikiViewController.swift */,
 				3FC6A9B820370F4F00172A14 /* WikiViewController.xib */,
+				3F74D8A9203B68CC00322988 /* MemberListViewController.swift */,
+				3F74D8AA203B68CC00322988 /* MemberListViewController.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -257,6 +263,7 @@
 				3FA9484420338A9E0067E308 /* targaryenSmall.jpg in Resources */,
 				3FC6A9BD20370F4F00172A14 /* HouseListViewController.xib in Resources */,
 				3F457050202CE4BB005CA8B4 /* Assets.xcassets in Resources */,
+				3F74D8AC203B68CC00322988 /* MemberListViewController.xib in Resources */,
 				499A4C302038FF110031E86E /* HouseDetailViewController.xib in Resources */,
 				49A15BEF2038EE440061F3C0 /* LaunchScreen.storyboard.xml in Resources */,
 				3FA9484320338A9E0067E308 /* lannister.jpg in Resources */,
@@ -286,6 +293,7 @@
 				3F457049202CE4BB005CA8B4 /* AppDelegate.swift in Sources */,
 				3FC6A9BA20370F4F00172A14 /* WikiViewController.swift in Sources */,
 				3FC6A9BB20370F4F00172A14 /* HouseListViewController.swift in Sources */,
+				3F74D8AB203B68CC00322988 /* MemberListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

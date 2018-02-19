@@ -25,9 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Crear el modelo
         let houses = Repository.local.houses
 
+        // Vista inicial de Tabla
         // Creamos la tabla
-        let houseListViewController = HouseListViewController(model: houses)
+        // let houseListViewController = HouseListViewController(model: houses)
         
+        // Vista inicial de tabs
         // Creamos los combinadores para mostrar las casas como tabs
         // let  tabBarViewController = UITabBarController()
         
@@ -37,9 +39,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //        .map{ $0.wrappedInNavigation() }
         
         
+        // Creamos los controladores (masterVC, detailVC)
+        let houseListViewController = HouseListViewController(model: houses)
+        let houseDetailViewController = HouseDetailViewController(model: houses.first!)
+        
+        // Asignamos el delegado de la lista que será el del detalle porque
+        // es quien va a gestionar el cambio de casa en la lista (el que lo implementa)
+        houseListViewController.delegate = houseDetailViewController
+        
+        // Creamos el view controller para pantalla partida
+        let splitViewController = UISplitViewController()
+        splitViewController.viewControllers = [
+                houseListViewController.wrappedInNavigation(),
+                houseDetailViewController.wrappedInNavigation()
+        ]
+        
         // Asignamos el rootVC
-        window?.rootViewController = houseListViewController.wrappedInNavigation()
+        //window?.rootViewController = houseListViewController.wrappedInNavigation()
         //window?.rootViewController = tabBarViewController
+        window?.rootViewController = splitViewController
 
         return true
     }
