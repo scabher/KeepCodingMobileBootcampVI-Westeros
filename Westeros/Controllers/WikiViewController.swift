@@ -43,6 +43,21 @@ class WikiViewController: UIViewController {
         title = model.name
         webView.load(URLRequest(url: model.wikiURL))
     }
+    
+    // MARK: - UI Sin delegado
+//    func setupUI() {
+//        let wikiButton = UIBarButtonItem(title: "Wiki", style: .plain, target: self, action: #selector(displayWiki))
+//
+//        navigationItem.rightBarButtonItem = wikiButton
+//    }
+//
+//    @objc func displayWiki() {
+//        // Creamos el WikiVC
+//        let wikiViewController = WikiViewController(model: model)
+//
+//        // Hacemos push
+//        navigationController?.pushViewController(wikiViewController, animated: true)
+//    }
 }
 
 extension WikiViewController: WKNavigationDelegate {
@@ -50,9 +65,10 @@ extension WikiViewController: WKNavigationDelegate {
         loadingView.stopAnimating()
         loadingView.isHidden = true
     }
-    
+
+    // @escaping : Determina que la clausura (WKNavigationActionPolicy) -> Void es asíncrona
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        
+
         let type = navigationAction.navigationType
         switch type {
         case .linkActivated, .formSubmitted:

@@ -26,18 +26,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let houses = Repository.local.houses
 
         // Creamos la tabla
-        // let houseListViewController = HouseListViewController(model: houses)
-        let  tabBarViewController = UITabBarController()
+        let houseListViewController = HouseListViewController(model: houses)
         
-        tabBarViewController.viewControllers =
-            houses
-                .map{ HouseDetailViewController(model: $0) }
-                .map{ $0.wrappedInNavigation() }
+        // Creamos los combinadores para mostrar las casas como tabs
+        // let  tabBarViewController = UITabBarController()
+        
+        //tabBarViewController.viewControllers =
+        //    houses
+        //        .map{ HouseDetailViewController(model: $0) }
+        //        .map{ $0.wrappedInNavigation() }
         
         
         // Asignamos el rootVC
-        //window?.rootViewController = houseListViewController.wrappedInNavigation()
-        window?.rootViewController = tabBarViewController
+        window?.rootViewController = houseListViewController.wrappedInNavigation()
+        //window?.rootViewController = tabBarViewController
 
         return true
     }
