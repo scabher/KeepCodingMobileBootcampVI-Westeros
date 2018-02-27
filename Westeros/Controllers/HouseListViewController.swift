@@ -10,10 +10,11 @@ import UIKit
 
 let HOUSE_KEY = "HouseKey"
 let HOUSE_DID_CHANGE_NOTIFICATION_NAME = "HouseDidChange"
+let LAST_HOUSE = "LastHouse"
 
 
 // Delegado para comunicar este VC con el VC del detalle de la casa
-protocol HouseListViewControllerDelegate {
+protocol HouseListViewControllerDelegate: class {
     // should, will, did
     func houseListViewController(_ vc: HouseListViewController, didSelectHouse: House)
 }
@@ -22,7 +23,7 @@ class HouseListViewController: UITableViewController {
     
     // Mark: - Properties
     let model: [House]
-    var delegate: HouseListViewControllerDelegate?
+    weak var delegate: HouseListViewControllerDelegate?
     
     // Mark: - Initialization
     init(model: [House]) {
@@ -35,6 +36,14 @@ class HouseListViewController: UITableViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // Mark: - Life Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let lastRow = UserDefaults.standard.integer(forKey: LAST_HOUSE)
+        let indexPath = IndexPath(row: lastRow, section: 0)
+        
+        tableView.selectRow(at: indexPath, animated: true, scrollPosition: .top)
+    }
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -90,5 +99,29 @@ class HouseListViewController: UITableViewController {
         let notificacion = Notification(name: Notification.Name(HOUSE_DID_CHANGE_NOTIFICATION_NAME), object: self, userInfo: [HOUSE_KEY : house])
         
         notificationCenter.post(notificacion)
+        
+        // Guardar las coordenadas (section, row) de la última casa seleccionada
+        saveLastSelectedHouse(at: indexPath.row)
+    }
+}
+
+extension HouseListViewController {
+    func saveLastSelectedHouse(at row: Int) {
+        let defaults = UserDefaults.standard
+        defaults.set(row, forKey: LAST_HOUSE)
+        
+        // Por si a caso, nos aseguramos de que efectivamente se guarda
+        defaults.synchronize()
+    }
+    
+    func lastSelectedHouse() -> House {
+        // Extraer la row del User Defaults
+        let row = UserDefaults.standard.integer(forKey: LAST_HOUSE)
+        
+        // Averigüar la casa de ese row
+        let house = model[row]
+        
+        // Devolver la casa
+        return house
     }
 }

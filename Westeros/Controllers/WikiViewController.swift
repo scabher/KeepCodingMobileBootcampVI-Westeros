@@ -9,8 +9,6 @@
 import UIKit
 import WebKit
 
-let HOUSE_DID_CHANGE_NOTIFICATION_NAME = "HouseDidChange"
-
 class WikiViewController: UIViewController {
     
     // Mark: - Outlets
@@ -18,7 +16,7 @@ class WikiViewController: UIViewController {
     @IBOutlet weak var loadingView: UIActivityIndicatorView!
     
     // Mark: - Properties
-    let model: House
+    var model: House
     
     // Mark: - Initialization
     init(model: House) {
@@ -45,12 +43,17 @@ class WikiViewController: UIViewController {
         
         // Nos damos de alta en las notificaciones
         let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(houseDidChange), name: Notification.Name(HOUSE_DID_CHANGE_NOTIFICATION_NAME), object: nil)
+        
+        // selector: Método que va a gestionar la notificación
+        // name: Nombre de la notificación la cual queremos observar
+        // object: Quien es el objeto que origina la notificación. Si fuera distinto de nil quizá se pueda usar un delegate
+        notificationCenter.addObserver(self, selector: #selector(houseDidChange), 
+                                       name: Notification.Name(HOUSE_DID_CHANGE_NOTIFICATION_NAME), object: nil)
         
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewWillDisappear(animated)
         
         // Nos damos de baja de las notificaciones
         let notificationCenter = NotificationCenter.default
@@ -61,6 +64,27 @@ class WikiViewController: UIViewController {
     func syncModelWithView() {
         title = model.name
         webView.load(URLRequest(url: model.wikiURL))
+    }
+    
+    // MARK: - Notifications
+    @objc func houseDidChange(notification: Notification) {
+        // Extraer el userInfo de la notificación
+        guard let info = notification.userInfo else {
+            return
+        }
+        
+        // Sacar la casa del userInfo
+        let house = info[HOUSE_KEY] as? House // Cast con un opcional
+        
+        // Actualizar el modelo
+        guard let theHouse = house else {
+            return
+        }
+        
+        model = theHouse
+        
+        // Sincronizar la vista
+        syncModelWithView()
     }
     
     // MARK: - UI Sin delegado

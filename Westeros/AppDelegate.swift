@@ -41,7 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Creamos los controladores (masterVC, detailVC)
         let houseListViewController = HouseListViewController(model: houses)
-        let houseDetailViewController = HouseDetailViewController(model: houses.first!)
+        
+        let lastSelectedHouse = houseListViewController.lastSelectedHouse()
+        let houseDetailViewController = HouseDetailViewController(model: lastSelectedHouse)
         
         // Asignamos el delegado de la lista que será el del detalle porque
         // es quien va a gestionar el cambio de casa en la lista (el que lo implementa)
@@ -58,6 +60,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //window?.rootViewController = houseListViewController.wrappedInNavigation()
         //window?.rootViewController = tabBarViewController
         window?.rootViewController = splitViewController
+        
+        // Proxy para darle formato al navigation bar:
+        UINavigationBar.appearance().backgroundColor = .blue
 
         return true
     }
