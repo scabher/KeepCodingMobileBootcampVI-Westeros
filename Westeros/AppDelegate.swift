@@ -22,39 +22,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         
-        // Crear el modelo
+        // Crear los modelos
         let houses = Repository.local.houses
+        let seasons = Repository.local.seasons
 
         // Vista inicial de Tabla
         // Creamos la tabla
         // let houseListViewController = HouseListViewController(model: houses)
         
-        // Vista inicial de tabs
-        // Creamos los combinadores para mostrar las casas como tabs
-        // let  tabBarViewController = UITabBarController()
-        
-        //tabBarViewController.viewControllers =
-        //    houses
-        //        .map{ HouseDetailViewController(model: $0) }
-        //        .map{ $0.wrappedInNavigation() }
-        
-        
+     
         // Creamos los controladores (masterVC, detailVC)
-        let houseListViewController = HouseListViewController(model: houses)
+        let houseListViewController = HouseListViewController(houses: houses)
+        let seasonListViewController = SeasonListViewController(seasons: seasons)
         
+        // Se obtiene la última fila seleccionada
         let lastSelectedHouse = houseListViewController.lastSelectedHouse()
-        let houseDetailViewController = HouseDetailViewController(model: lastSelectedHouse)
+        let houseDetailViewController = HouseDetailViewController(house: lastSelectedHouse)
+        
+        let lastSelectedSeason = seasonListViewController.lastSelectedSeason()
+        let seasonDetailViewController = SeasonDetailViewController(season: lastSelectedSeason)
         
         // Asignamos el delegado de la lista que será el del detalle porque
         // es quien va a gestionar el cambio de casa en la lista (el que lo implementa)
         houseListViewController.delegate = houseDetailViewController
+        seasonListViewController.delegate = seasonDetailViewController
+        
+        // Vista lateral izquierda
+        // Creamos los combinadores para mostrar las casas como tabs
+        let  tabBarViewController = UITabBarController()
+        
+        tabBarViewController.viewControllers = [houseListViewController, seasonListViewController]
+        tabBarViewController.selectedViewController = tabBarViewController.viewControllers![1]
         
         // Creamos el view controller para pantalla partida
         let splitViewController = UISplitViewController()
         splitViewController.viewControllers = [
-                houseListViewController.wrappedInNavigation(),
-                houseDetailViewController.wrappedInNavigation()
+                tabBarViewController.wrappedInNavigation(),
+                seasonDetailViewController.wrappedInNavigation()
         ]
+        
         
         // Asignamos el rootVC
         //window?.rootViewController = houseListViewController.wrappedInNavigation()

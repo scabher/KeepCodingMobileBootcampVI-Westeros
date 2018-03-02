@@ -11,7 +11,8 @@ import UIKit
 let HOUSE_KEY = "HouseKey"
 let HOUSE_DID_CHANGE_NOTIFICATION_NAME = "HouseDidChange"
 let LAST_HOUSE = "LastHouse"
-
+let HOUSE_CELL_ID = "HouseCell"
+let HOUSE_TITLE = "Houses"
 
 // Delegado para comunicar este VC con el VC del detalle de la casa
 protocol HouseListViewControllerDelegate: class {
@@ -21,22 +22,22 @@ protocol HouseListViewControllerDelegate: class {
 
 class HouseListViewController: UITableViewController {
     
-    // Mark: - Properties
-    let model: [House]
+    // MARK: - Properties
+    let houses: [House]
     weak var delegate: HouseListViewControllerDelegate?
     
-    // Mark: - Initialization
-    init(model: [House]) {
-        self.model = model
+    // MARK: - Initialization
+    init(houses: [House]) {
+        self.houses = houses
         super.init(style: .plain)
-        title = "Westeros"
+        title = HOUSE_TITLE
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // Mark: - Life Cycle
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         let lastRow = UserDefaults.standard.integer(forKey: LAST_HOUSE)
@@ -51,22 +52,21 @@ class HouseListViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return model.count
+        return houses.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Habrá un identificador por tipo de celda (según su formato - con switch, con imagen, con título y subtítulo, etc... -
-        // para que luego se busque en la caché una celda del mismo tipo a la que se quiere ubicar en memoria
-        let cellId = "HouseCell"
+        // HOUSE_CELL_ID: para que luego se busque en la caché una celda del mismo tipo a la que se quiere ubicar en memoria
         
         // Descubrir cual es la casa que tenemos que mostrar
-        let house = model[indexPath.row]
+        let house = houses[indexPath.row]
         
         // Crear una celda
-        var cell = tableView.dequeueReusableCell(withIdentifier: cellId)
+        var cell = tableView.dequeueReusableCell(withIdentifier: HOUSE_CELL_ID)
         if cell == nil {
-            cell = UITableViewCell(style: .default, reuseIdentifier: cellId)
+            cell = UITableViewCell(style: .default, reuseIdentifier: HOUSE_CELL_ID)
         }
         
         // Sincroniza house (model) con cell (vista)
@@ -74,14 +74,13 @@ class HouseListViewController: UITableViewController {
         cell?.textLabel?.text = house.name
         
         return cell!
-        
     }
     
-    // MARK: Table View Delegate
+    // MARK: - Table View Delegate
     // Por convención se usa should, will, did para saber cuándo se va a ejecutar el método
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Averiguar qué casa han pulsado
-        let house = model[indexPath.row]
+        let house = houses[indexPath.row]
         
         // Si se actualiza este viewController (no splitViewController)
         // Crear un controlador de detalle de esa casa
@@ -119,7 +118,7 @@ extension HouseListViewController {
         let row = UserDefaults.standard.integer(forKey: LAST_HOUSE)
         
         // Averigüar la casa de ese row
-        let house = model[row]
+        let house = houses[row]
         
         // Devolver la casa
         return house

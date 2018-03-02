@@ -16,15 +16,15 @@ class HouseDetailViewController: UIViewController {
     @IBOutlet weak var sigilImageView: UIImageView!
     
     // Mark: - Properties
-    var model: House
+    var house: House
     
     // Mark: - Initialization
-    init(model: House) {
+    init(house: House) {
         // Primero, limpias tu propio desorder
-        self.model = model
+        self.house = house
         // Llamas a super
         super.init(nibName: nil, bundle: Bundle(for: type(of: self)))
-        title = model.name
+        title = house.name
     }
     
     // Chapuza de los de Cupertino relacionada con los nil
@@ -42,9 +42,9 @@ class HouseDetailViewController: UIViewController {
     // Mark: - Sync
     func syncModelWithView() {
         // Model -> View
-        houseNameLabel.text = "House \(model.name)"
-        sigilImageView.image = model.sigil.image
-        wordsLabel.text = model.words
+        houseNameLabel.text = "House \(house.name)"
+        sigilImageView.image = house.sigil.image
+        wordsLabel.text = house.words
     }
     
     // MARK: - UI
@@ -57,7 +57,7 @@ class HouseDetailViewController: UIViewController {
     
     @objc func displayWiki() {
         // Creamos el WikiVC
-        let wikiViewController = WikiViewController(model: model)
+        let wikiViewController = WikiViewController(model: house)
         
         // Hacemos push
         navigationController?.pushViewController(wikiViewController, animated: true)
@@ -65,7 +65,7 @@ class HouseDetailViewController: UIViewController {
     
     @objc func displayMembers() {
         // Creamos el VC
-        let memberListViewController = MemberListViewController(model: model.sortedMembers)
+        let memberListViewController = MemberListViewController(model: house.sortedMembers)
 
         // Hacemos Push
         navigationController?.pushViewController(memberListViewController, animated: true)
@@ -76,7 +76,7 @@ class HouseDetailViewController: UIViewController {
 
 extension HouseDetailViewController: HouseListViewControllerDelegate {
     func houseListViewController(_ vc: HouseListViewController, didSelectHouse house: House) {
-        self.model = house
+        self.house = house
         syncModelWithView()
     }
 }
