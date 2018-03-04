@@ -20,12 +20,27 @@ class SeasonTests: XCTestCase {
     override func setUp() {
         super.setUp()
         let seasons = Repository.local.seasons
-        season1 = seasons[0]
-        season2 =  seasons[1]
+        let repoSeason1 = seasons[0]
+        let repoSeason2 =  seasons[1]
         
-        episode1_1 = season1.sortedEpisodes[0]
-        episode1_2 = season1.sortedEpisodes[1]
-        episode2_1 = season2.sortedEpisodes[0]
+        season1 = Season(name: repoSeason1.name, releaseDate: repoSeason1.releaseDate, episodes: Episodes())
+        season2 = Season(name: repoSeason2.name, releaseDate: repoSeason2.releaseDate, episodes: Episodes())
+
+        
+        episode1_1 = Episode(title: repoSeason1.sortedEpisodes[0].title,
+                             dateOfIssue: repoSeason1.sortedEpisodes[0].dateOfIssue,
+                             plot: repoSeason1.sortedEpisodes[0].plot,
+                             season: season1)
+        
+        episode1_2 = Episode(title: repoSeason1.sortedEpisodes[1].title,
+                             dateOfIssue: repoSeason1.sortedEpisodes[1].dateOfIssue,
+                             plot: repoSeason1.sortedEpisodes[1].plot,
+                             season: season1)
+        
+        episode2_1 = Episode(title: repoSeason2.sortedEpisodes[0].title,
+                             dateOfIssue: repoSeason2.sortedEpisodes[0].dateOfIssue,
+                             plot: repoSeason2.sortedEpisodes[0].plot,
+                             season: season2)
     }
     
     override func tearDown() {
