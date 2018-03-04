@@ -65,14 +65,13 @@ class HouseDetailViewController: UIViewController {
     
     @objc func displayMembers() {
         // Creamos el VC
-        let memberListViewController = MemberListViewController(model: house.sortedMembers)
+        let memberListViewController = MemberListViewController(members: house.sortedMembers)
 
         // Hacemos Push
         navigationController?.pushViewController(memberListViewController, animated: true)
         
     }
 }
-
 
 extension HouseDetailViewController: HouseListViewControllerDelegate {
     func houseListViewController(_ vc: HouseListViewController, didSelectHouse house: House) {

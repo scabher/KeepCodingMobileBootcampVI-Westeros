@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EpisodeListViewController" customModule="Westeros" customModuleProvider="target">
             <connections>
-                <outlet property="episodeTableView" destination="i5M-Pr-FkT" id="eKR-Q5-h6O"/>
+                <outlet property="tableView" destination="i5M-Pr-FkT" id="eKR-Q5-h6O"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

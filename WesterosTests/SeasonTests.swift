@@ -19,13 +19,13 @@ class SeasonTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-                
-        season1 = Season(name: "Temporada 1", releaseDate: Date(), episodes: Episodes())
-        season2 = Season(name: "Temporada 2", releaseDate: Date(), episodes: Episodes())
+        let seasons = Repository.local.seasons
+        season1 = seasons[0]
+        season2 =  seasons[1]
         
-        episode1_1 = Episode(title: "Se acerca el invierno", dateOfIssue: Date(), season: season1)
-        episode1_2 = Episode(title: "El Camino Real", dateOfIssue: Date(), season: season1)
-        episode2_1 = Episode(title: "El Norte no olvida", dateOfIssue: Date(), season: season2)
+        episode1_1 = season1.sortedEpisodes[0]
+        episode1_2 = season1.sortedEpisodes[1]
+        episode2_1 = season2.sortedEpisodes[0]
     }
     
     override func tearDown() {
@@ -52,8 +52,8 @@ class SeasonTests: XCTestCase {
         season1.add(episode: episode2_1)
         XCTAssertEqual(season1.count, 2)
         
-        let episode1_3 = Episode(title: "Lord Nieve", dateOfIssue: Date(), season: season1)
-        let episode1_4 = Episode(title: "Tullidos, bastardos y cosas rotas", dateOfIssue: Date(), season: season1)
+        let episode1_3 = Episode(title: "Lord Snow", dateOfIssue: Date(), plot: "", season: season1)
+        let episode1_4 = Episode(title: "Cripples, Bastards, and Broken Things", dateOfIssue: Date(), plot: "", season: season1)
         
         season2.add(episodes: episode2_1, episode2_1, episode1_1, episode1_2, episode1_3, episode1_4)
         XCTAssertEqual(season2.count, 1)
@@ -68,7 +68,7 @@ class SeasonTests: XCTestCase {
         XCTAssertEqual(season1, season1)
         
         // Igualdad
-        let season1rep = Season(name: "Temporada 1", releaseDate: season1.releaseDate, episodes: Episodes())
+        let season1rep = Season(name: "Season 1", releaseDate: season1.releaseDate, episodes: Episodes())
         XCTAssertEqual(season1, season1rep)
         
         // Desigualdad

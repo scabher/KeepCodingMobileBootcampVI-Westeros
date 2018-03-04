@@ -12,11 +12,13 @@ import Foundation
 final class Episode {
     let title: String
     let dateOfIssue: Date
+    let plot: String
     weak var season: Season!
     
-    init(title: String, dateOfIssue: Date, season: Season) {
+    init(title: String, dateOfIssue: Date, plot: String, season: Season) {
         self.title = title
         self.dateOfIssue = dateOfIssue
+        self.plot = plot
         self.season = season
     }
 }
@@ -27,8 +29,8 @@ extension Episode {
         return "\(title) \(season.name) \(dateOfIssue.description)"
     }
     
-    var proxyForComparison: String {
-        return "\(title) \(season.name)"
+    var proxyForComparison: Double {
+        return dateOfIssue.timeIntervalSince1970.magnitude
     }
 }
 

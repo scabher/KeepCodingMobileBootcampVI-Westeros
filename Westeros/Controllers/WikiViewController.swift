@@ -86,21 +86,6 @@ class WikiViewController: UIViewController {
         // Sincronizar la vista
         syncModelWithView()
     }
-    
-    // MARK: - UI Sin delegado
-//    func setupUI() {
-//        let wikiButton = UIBarButtonItem(title: "Wiki", style: .plain, target: self, action: #selector(displayWiki))
-//
-//        navigationItem.rightBarButtonItem = wikiButton
-//    }
-//
-//    @objc func displayWiki() {
-//        // Creamos el WikiVC
-//        let wikiViewController = WikiViewController(model: model)
-//
-//        // Hacemos push
-//        navigationController?.pushViewController(wikiViewController, animated: true)
-//    }
 }
 
 extension WikiViewController: WKNavigationDelegate {
@@ -121,8 +106,6 @@ extension WikiViewController: WKNavigationDelegate {
         }
     }
 }
-
-
 
 
 

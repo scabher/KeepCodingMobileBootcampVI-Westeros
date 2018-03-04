@@ -82,20 +82,17 @@ class HouseListViewController: UITableViewController {
         // Averiguar qué casa han pulsado
         let house = houses[indexPath.row]
         
-        // Si se actualiza este viewController (no splitViewController)
-        // Crear un controlador de detalle de esa casa
-        // let houseDetailViewController = HouseDetailViewController(model: house)
-        
-        // Hacer un push
-        // navigationController?.pushViewController(houseDetailViewController, animated: true)
-        
         // Usando splitViewController
         // Se notifica la nueva casa seleccionada en la lista de casas
         delegate?.houseListViewController(self, didSelectHouse: house)
         
         // Mando la misma info a través de notificaciones (para el resto de controladores)
         let notificationCenter = NotificationCenter.default
-        let notificacion = Notification(name: Notification.Name(HOUSE_DID_CHANGE_NOTIFICATION_NAME), object: self, userInfo: [HOUSE_KEY : house])
+        let notificacion = Notification(
+            name: Notification.Name(HOUSE_DID_CHANGE_NOTIFICATION_NAME),
+            object: self,
+            userInfo: [HOUSE_KEY : house]
+        )
         
         notificationCenter.post(notificacion)
         

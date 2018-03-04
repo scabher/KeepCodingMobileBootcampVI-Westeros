@@ -8,17 +8,16 @@
 
 import UIKit
 
-class MemberListViewController: UIViewController {
-    
-    // Mark: - Outlets
-    @IBOutlet weak var tableView: UITableView!
+let MEMBER_CELL_ID = "MemberCell"
+
+class MemberListViewController: UITableViewController {
     
     // Mark: - Properties
-    let model: [Person]
+    var members: [Person]
     
     // Mark: - Initialization
-    init(model: [Person]) {
-        self.model = model
+    init(members: [Person]) {
+        self.members = members
         super.init(nibName: nil, bundle: nil)
         title = "Members"
     }
@@ -34,28 +33,64 @@ class MemberListViewController: UIViewController {
         // Asignamos la fuente de datos
         tableView.dataSource = self
     }
-}
-
-// MARK: - UITableViewDataSource
-extension MemberListViewController: UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return model.count
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Nos damos de alta en las notificaciones
+        let notificationCenter = NotificationCenter.default
+        
+        // selector: Método que va a gestionar la notificación
+        // name: Nombre de la notificación la cual queremos observar
+        // object: Quien es el objeto que origina la notificación. Si fuera distinto de nil quizá se pueda usar un delegate
+        notificationCenter.addObserver(self, selector: #selector(houseDidChange),
+                                       name: Notification.Name(HOUSE_DID_CHANGE_NOTIFICATION_NAME), object: nil)
+        
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellId = "MemberCell"
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         
+        // Nos damos de baja de las notificaciones
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.removeObserver(self)
+    }
+    
+    // MARK: - Notifications
+    @objc func houseDidChange(notification: Notification) {
+        // Extraer el userInfo de la notificación
+        guard let info = notification.userInfo else {
+            return
+        }
+        
+        // Sacar la casa del userInfo
+        let house = info[HOUSE_KEY] as? House // Cast con un opcional
+        
+        // Actualizar el modelo
+        guard let theHouse = house else {
+            return
+        }
+        
+        self.members = theHouse.sortedMembers
+        tableView.reloadData()
+    }
+    
+    // MARK: - Table view data source
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return members.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Descubrir la persona que tenemos que mostrar
-        let person = model[indexPath.row]
+        let person = members[indexPath.row]
         
         // Preguntar por una celda (a una cache) o Crearla
         //        var cell = tableView.dequeueReusableCell(withIdentifier: cellId)
         //        if cell == nil {
         //            cell = UITableViewCell(style: .default, reuseIdentifier: cellId)
         //        }
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId)
-            ?? UITableViewCell(style: .default, reuseIdentifier: cellId)
+        let cell = tableView.dequeueReusableCell(withIdentifier: MEMBER_CELL_ID)
+            ?? UITableViewCell(style: .default, reuseIdentifier: MEMBER_CELL_ID)
         
         // Sicronizar celda y persona
         cell.textLabel?.text = person.fullName
@@ -63,4 +98,17 @@ extension MemberListViewController: UITableViewDataSource {
         // Devolver la celda
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Averiguar qué miembro han pulsado
+        let member = members[indexPath.row]
+        
+        // Creamos el VC
+        let memberDetailViewController = MemberDetailViewController(member: member)
+        
+        // Hacemos Push
+        navigationController?.pushViewController(memberDetailViewController, animated: true)
+    }
 }
+
+

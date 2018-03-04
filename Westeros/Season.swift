@@ -27,8 +27,8 @@ extension Season {
         return _episodes.count
     }
     
-    var episodes: Episodes {
-        return _episodes
+    var sortedEpisodes: [Episode] {
+        return _episodes.sorted()
     }
     
     func add(episode: Episode) {
@@ -49,8 +49,8 @@ extension Season {
         return "\(name) \(releaseDate.description) \(count)"
     }
     
-    var proxyForComparison: String {
-        return name.uppercased()
+    var proxyForComparison: Double {
+        return releaseDate.timeIntervalSince1970.magnitude
     }
 }
 

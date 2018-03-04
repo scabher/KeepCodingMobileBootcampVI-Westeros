@@ -17,12 +17,10 @@ class EpisodeTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-                
-        season1 = Season(name: "Temporada 1", releaseDate: Date(), episodes: Episodes())
-        episode1 = Episode(title: "Se acerca el invierno", dateOfIssue: Date(), season: season1)
-        episode2 = Episode(title: "El Camino Real", dateOfIssue: Date(), season: season1)
-        season1.add(episode: episode1)
-        season1.add(episode: episode2)
+        let seasons = Repository.local.seasons
+        season1 = seasons[0]
+        episode1 = season1.sortedEpisodes[0]
+        episode2 = season1.sortedEpisodes[1]
     }
     
     override func tearDown() {
@@ -35,7 +33,7 @@ class EpisodeTests: XCTestCase {
     }
     
     func testEpisodeCustomString() {
-        XCTAssertEqual(episode1.description, "Se acerca el invierno Temporada 1")
+        XCTAssertEqual(episode1.description, "Winter Is Coming Season 1")
     }
     
     func testEpisodeEquality() {
@@ -43,7 +41,7 @@ class EpisodeTests: XCTestCase {
         XCTAssertEqual(episode1, episode1)
         
         // Igualdad
-        let ep1 = Episode(title: "Se acerca el invierno", dateOfIssue: episode1.dateOfIssue, season: season1)
+        let ep1 = Episode(title: "Winter Is Coming", dateOfIssue: episode1.dateOfIssue, plot: episode1.plot, season: season1)
         XCTAssertEqual(ep1, episode1)
         
         // Desigualdad

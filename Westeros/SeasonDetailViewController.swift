@@ -39,10 +39,14 @@ class SeasonDetailViewController: UIViewController {
     
     // Mark: - Sync
     func syncModelWithView() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
+        
         // Model -> View
         title = season.name
         seasonNameLabel.text = season.name
-        releaseDateLabel.text = season.releaseDate.description
+        releaseDateLabel.text = dateFormatter.string(from: season.releaseDate)
     }
     
     // MARK: - UI
@@ -54,11 +58,10 @@ class SeasonDetailViewController: UIViewController {
 
     @objc func displayEpisodes() {
         // Creamos el VC
-        let episodeListViewController = EpisodeListViewController(episodes: season.episodes)
+        let episodeListViewController = EpisodeListViewController(episodes: season.sortedEpisodes)
         
         // Hacemos Push
         navigationController?.pushViewController(episodeListViewController, animated: true)
-        
     }
 }
 
