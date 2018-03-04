@@ -39,6 +39,10 @@ class SeasonListViewController: UITableViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         // Selección de la última fila seleccionada
         let lastRow = UserDefaults.standard.integer(forKey: LAST_SEASON)

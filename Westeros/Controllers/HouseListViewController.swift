@@ -40,6 +40,11 @@ class HouseListViewController: UITableViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         let lastRow = UserDefaults.standard.integer(forKey: LAST_HOUSE)
         let indexPath = IndexPath(row: lastRow, section: 0)
         

@@ -40,8 +40,9 @@ class SeasonDetailViewController: UIViewController {
     // Mark: - Sync
     func syncModelWithView() {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
+        dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
+        dateFormatter.locale = Locale(identifier: "en_US")
         
         // Model -> View
         title = season.name

@@ -16,7 +16,6 @@ class MasterViewController: UITabBarController {
     let houseListViewController: HouseListViewController
     let seasonListViewController: SeasonListViewController
     
-    
     let houseDetailViewController: HouseDetailViewController
     let seasonDetailViewController: SeasonDetailViewController
 
@@ -52,7 +51,7 @@ class MasterViewController: UITabBarController {
         super.viewDidLoad()
         
         self.delegate = self
-        houseListViewController.delegate =   houseDetailViewController
+        houseListViewController.delegate = houseDetailViewController
         seasonListViewController.delegate = seasonDetailViewController
     }
 

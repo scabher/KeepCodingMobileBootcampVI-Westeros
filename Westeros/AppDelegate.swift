@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         // Proxy para darle formato al navigation bar:
-        UINavigationBar.appearance().backgroundColor = .blue
+        // UINavigationBar.appearance().backgroundColor = .blue
 
         let  masterViewController = MasterViewController(
             houses: Repository.local.houses,
