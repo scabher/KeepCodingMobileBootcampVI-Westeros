@@ -45,6 +45,7 @@ class HouseDetailViewController: UIViewController {
         houseNameLabel.text = "House \(house.name.rawValue)"
         sigilImageView.image = house.sigil.image
         wordsLabel.text = house.words
+        title = house.name.rawValue
     }
     
     // MARK: - UI
