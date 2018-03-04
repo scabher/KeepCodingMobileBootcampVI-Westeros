@@ -24,7 +24,7 @@ class HouseDetailViewController: UIViewController {
         self.house = house
         // Llamas a super
         super.init(nibName: nil, bundle: Bundle(for: type(of: self)))
-        title = house.name
+        title = house.name.rawValue
     }
     
     // Chapuza de los de Cupertino relacionada con los nil
@@ -42,7 +42,7 @@ class HouseDetailViewController: UIViewController {
     // Mark: - Sync
     func syncModelWithView() {
         // Model -> View
-        houseNameLabel.text = "House \(house.name)"
+        houseNameLabel.text = "House \(house.name.rawValue)"
         sigilImageView.image = house.sigil.image
         wordsLabel.text = house.words
     }

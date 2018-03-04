@@ -26,14 +26,14 @@ final class Person {
 
 extension Person {
     var fullName: String {
-        return "\(name) \(house.name)"
+        return "\(name) \(house.name.rawValue)"
     }
 }
 
 // MARK: - Proxies
 extension Person {
     var proxyForEquality: String {
-        return "\(name) \(alias) \(house.name)"
+        return "\(name) \(alias) \(house.name.rawValue)"
     }
     
     var proxyForComparison: String {

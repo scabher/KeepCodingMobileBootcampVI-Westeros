@@ -62,7 +62,7 @@ class WikiViewController: UIViewController {
     
     // MARK: - Sync
     func syncModelWithView() {
-        title = model.name
+        title = model.name.rawValue
         webView.load(URLRequest(url: model.wikiURL))
     }
     

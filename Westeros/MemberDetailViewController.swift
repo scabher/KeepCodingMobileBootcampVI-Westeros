@@ -60,6 +60,6 @@ class MemberDetailViewController: UIViewController {
         title = member.name
         nameLabel.text = member.name
         aliasLabel.text = member.alias
-        houseLabel.text = member.house.name
+        houseLabel.text = member.house.name.rawValue
     }
 }
