@@ -48,6 +48,10 @@ class SeasonDetailViewController: UIViewController {
         title = season.name
         seasonNameLabel.text = season.name
         releaseDateLabel.text = dateFormatter.string(from: season.releaseDate)
+        
+        let backItem = UIBarButtonItem()
+        backItem.title = season.name
+        navigationItem.backBarButtonItem = backItem
     }
     
     // MARK: - UI

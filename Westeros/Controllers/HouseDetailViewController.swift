@@ -46,6 +46,10 @@ class HouseDetailViewController: UIViewController {
         sigilImageView.image = house.sigil.image
         wordsLabel.text = house.words
         title = house.name.rawValue
+        
+        let backItem = UIBarButtonItem()
+        backItem.title = house.name.rawValue
+        navigationItem.backBarButtonItem = backItem
     }
     
     // MARK: - UI
@@ -76,8 +80,14 @@ class HouseDetailViewController: UIViewController {
 
 extension HouseDetailViewController: HouseListViewControllerDelegate {
     func houseListViewController(_ vc: HouseListViewController, didSelectHouse house: House) {
+        let collapsed = splitViewController?.isCollapsed ?? true
+        
         self.house = house
         syncModelWithView()
+        
+        if (collapsed) {
+            navigationController?.popToViewController(self, animated: true)
+        }
     }
 }
 
